@@ -48,7 +48,20 @@ void nitrogen()
 	pressUp(VK_RSHIFT);
 
 	pressDown(VK_SPACE);
-	std::cout << "µªÆø" <<std::endl;
+	std::cout << "µªÆø" ;
+}
+
+void streight()
+{
+	pressUp(VK_RSHIFT);
+	pressUp(VK_SPACE);
+	pressUp(VK_DOWN);
+	pressUp(VK_LEFT);
+	pressUp(VK_RIGHT);
+
+	pressDown(VK_UP);
+	pressUp(VK_UP);
+	std::cout << "Ç°ÐÐ" /*<< GetAsyncKeyState(VK_UP) << ' ' << std::endl*/;
 }
 
 void control2(HandPoint &green, HandPoint &red, HandPoint &blue, HandPoint &yellow)
@@ -134,7 +147,10 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 		pressDown(VK_UP);
 		pressDown(VK_LEFT);
 		pressDown(VK_RSHIFT);
-		std::cout << "×óÆ¯ÒÆ" << std::endl;
+		pressUp(VK_UP);
+		pressUp(VK_LEFT);
+		pressUp(VK_RSHIFT);
+		std::cout << "×óÆ¯ÒÆ" << blue.x << ' ' << blue.y << '\t' << green.x << ' ' << green.y << ' ' << std::endl;
 		return;
 	}
 
@@ -143,40 +159,44 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 	{
 		pressUp(VK_SPACE);
 		pressUp(VK_DOWN);
-		pressUp(VK_RIGHT);
+		pressUp(VK_LEFT);
 		pressUp(VK_RSHIFT);
 
 		pressDown(VK_UP);
-		pressDown(VK_LEFT);
+		pressDown(VK_RIGHT);
 		pressDown(VK_RSHIFT);
-		std::cout << "ÓÒÆ¯ÒÆ" << std::endl;
+		pressUp(VK_UP);
+		pressUp(VK_RIGHT);
+		pressUp(VK_RSHIFT);
+		std::cout << "ÓÒÆ¯ÒÆ" << blue.x << ' ' << blue.y << '\t' << green.x << ' ' << green.y << ' ' << std::endl;
 		return;
 	}
 
 	//É²³µ
-	if (red.color &&yellow.color)
-	{
-		pressUp(VK_SPACE);
-		pressUp(VK_UP);
-		pressUp(VK_LEFT);
-		pressUp(VK_RIGHT);
-		pressUp(VK_RSHIFT);
+	//if (red.color &&yellow.color)
+	//{
+	//	pressUp(VK_SPACE);
+	//	pressUp(VK_UP);
+	//	pressUp(VK_LEFT);
+	//	pressUp(VK_RIGHT);
+	//	pressUp(VK_RSHIFT);
 
-		pressDown(VK_DOWN);
-		std::cout << "É²³µ" << std::endl;
-		return;
-	}
-	else
-	{
-		pressUp(VK_DOWN);
-		pressDown(VK_UP);
-	}
+	//	pressDown(VK_DOWN);
+	//	std::cout << "É²³µ" << blue.x << ' ' << blue.y << '\t' << green.x << ' ' << green.y << ' ' << std::endl;
+	//	return;
+	//}
+	//else
+	//{
+	//	pressUp(VK_DOWN);
+	//	pressDown(VK_UP);
+	//}
 
 	//ÊÍ·ÅµªÆø
 	if (distance(blue, green) < THR_NRT)
 	{
 		//before press
 		nitrogen();
+		std::cout << blue.x << ' ' << blue.y << '\t' << green.x << ' ' << green.y << ' ' << std::endl;
 		return;
 	}
 
@@ -188,10 +208,14 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 		pressUp(VK_DOWN);
 		pressUp(VK_RSHIFT);
 		pressUp(VK_RIGHT);
+		pressUp(VK_UP);
+		pressUp(VK_LEFT);
 
 		pressDown(VK_UP);
 		pressDown(VK_LEFT);
-		std::cout << "×ó×ª" << std::endl;
+		pressUp(VK_UP);
+		pressUp(VK_LEFT);
+		std::cout << "×ó×ª" << blue.x << ' ' << blue.y << '\t' << green.x << ' ' << green.y << ' ' << std::endl;
 		return;
 	}
 	else
@@ -201,21 +225,19 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 		pressUp(VK_DOWN);
 		pressUp(VK_RSHIFT);
 		pressUp(VK_LEFT);
+		pressUp(VK_UP);
+		pressUp(VK_RIGHT);
 
 		pressDown(VK_UP);
 		pressDown(VK_RIGHT);
-		std::cout << "ÓÒ×ª" << std::endl;
+		pressUp(VK_UP);
+		pressUp(VK_RIGHT);
+		std::cout << "ÓÒ×ª" << blue.x << ' ' << blue.y << '\t' << green.x << ' ' << green.y << ' ' << std::endl;
 		return;
 	}
 
-	pressUp(VK_RSHIFT);
-	pressUp(VK_SPACE);
-	pressUp(VK_DOWN);
-	pressUp(VK_LEFT);
-	pressUp(VK_RIGHT);
-
-	pressDown(VK_UP);
-	std::cout << "Ç°ÐÐ" << std::endl;
+	streight();
+	std::cout << blue.x << ' ' << blue.y << '\t' << green.x << ' ' << green.y << ' ' << std::endl;
 }
 
 void init()
@@ -223,14 +245,14 @@ void init()
 	
 }
 
-//int main()
-//{
-//	int x;
-//	std::cin >> x;
-//	while (1)
-//	{
-//		nitrogen();
-//		Sleep(1000);
-//	}
-//	return 0;
-//}
+int main()
+{
+	int x;
+	std::cin >> x;
+	while (1)
+	{
+		streight();
+		Sleep(1000);
+	}
+	return 0;
+}
