@@ -45,6 +45,7 @@ void nitrogen()
 {
 	pressUp(VK_LEFT);
 	pressUp(VK_RIGHT);
+	pressUp(VK_RSHIFT);
 
 	pressDown(VK_SPACE);
 	std::cout << "µªÆø" <<std::endl;
@@ -123,11 +124,12 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 	//Æ¯ÒÆ
 
 	//×óÆ¯ÒÆ
-	if (green.y < MAX_X / 2 && blue.y < MAX_X / 2)
+	if (green.x < MAX_X / 2 && blue.x < MAX_X / 2)
 	{
 		pressUp(VK_SPACE);
 		pressUp(VK_DOWN);
 		pressUp(VK_RIGHT);
+		pressUp(VK_RSHIFT);
 
 		pressDown(VK_UP);
 		pressDown(VK_LEFT);
@@ -137,11 +139,12 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 	}
 
 	//ÓÒÆ¯ÒÆ
-	if (green.y > MAX_X / 2 && blue.y > MAX_X / 2)
+	if (green.x > MAX_X / 2 && blue.x > MAX_X / 2)
 	{
 		pressUp(VK_SPACE);
 		pressUp(VK_DOWN);
 		pressUp(VK_RIGHT);
+		pressUp(VK_RSHIFT);
 
 		pressDown(VK_UP);
 		pressDown(VK_LEFT);
@@ -157,13 +160,17 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 		pressUp(VK_UP);
 		pressUp(VK_LEFT);
 		pressUp(VK_RIGHT);
+		pressUp(VK_RSHIFT);
 
 		pressDown(VK_DOWN);
 		std::cout << "É²³µ" << std::endl;
 		return;
 	}
 	else
+	{
 		pressUp(VK_DOWN);
+		pressDown(VK_UP);
+	}
 
 	//ÊÍ·ÅµªÆø
 	if (distance(blue, green) < THR_NRT)
@@ -201,11 +208,11 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 		return;
 	}
 
+	pressUp(VK_RSHIFT);
 	pressUp(VK_SPACE);
 	pressUp(VK_DOWN);
 	pressUp(VK_LEFT);
 	pressUp(VK_RIGHT);
-	pressUp(VK_SHIFT);
 
 	pressDown(VK_UP);
 	std::cout << "Ç°ÐÐ" << std::endl;
