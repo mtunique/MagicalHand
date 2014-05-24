@@ -1,13 +1,27 @@
+
 #ifndef BASE_FUNCTIONS_H
 #define BASE_FUNCTIONS_H
 
-double MAXTAN = 1000000000;
+#include <Windows.h>
+struct HandPoint;
 
-class HandPoint;
+//type 
+const double MAXTAN = 1000000000;
+const double THR_NRT = 20;
 
+
+//computation geometry
 double m_tan(HandPoint &, HandPoint &);
 double distance(HandPoint &, HandPoint &);
+HandPoint getCenter(HandPoint &, HandPoint &);
+
+void control(HandPoint &, HandPoint &, HandPoint &, HandPoint &);
+void init();
 
 
+//press key
+void pressDown(BYTE);
+void pressUp(BYTE);
 
-#endif BASE_FUNCTIONS_H
+
+#endif 

@@ -2,7 +2,7 @@
 #define __HAND_FUNCTIONS__
 
 
-char *window_name = "Demo Window";
+static char *window_name = "Demo Window";
 
 
 //lights color
