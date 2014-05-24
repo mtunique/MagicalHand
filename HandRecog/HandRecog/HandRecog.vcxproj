@@ -81,10 +81,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="base_functions.cpp" />
     <ClCompile Include="CameraDS.cpp" />
-    <ClCompile Include="hand_main.cpp" />
+    <ClCompile Include="hand_main.cpp">
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4430</DisableSpecificWarnings>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="base_functions.h" />
     <ClInclude Include="CameraDS.h" />
     <ClInclude Include="hand_functions.h" />
     <ClInclude Include="qedit.h" />

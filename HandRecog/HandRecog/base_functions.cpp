@@ -12,7 +12,7 @@ double m_tan(HandPoint & l, HandPoint & r)
 }
 
 double distance(HandPoint & l, HandPoint & r)
-{	
+{
 	return sqrt((l.x - r.x)*(l.x - r.x) + (l.y - r.y)*(l.y - r.y));
 }
 
@@ -28,32 +28,39 @@ void pressUp(BYTE key)
 		keybd_event(key, 0, KEYEVENTF_KEYUP, 0);
 }
 
+void nitrogen()
+{
+	pressUp(VK_LEFT);
+	pressUp(VK_RIGHT);
+
+	pressDown(VK_RSHIFT);
+	pressUp(VK_RSHIFT);
+	std::cout << "µªÆø";
+}
+
 void control(HandPoint & blue, HandPoint & red, HandPoint & green, HandPoint & yellow)
 {
 	//É²³µ
 	if (red.color && yellow.color)
 	{
-		if(!GetAsyncKeyState(VK_DOWN))
+		if (!GetAsyncKeyState(VK_DOWN))
 			//before press
 			pressUp(VK_UP);
-			pressUp(VK_LEFT);
-			pressUp(VK_RIGHT);
+		pressUp(VK_LEFT);
+		pressUp(VK_RIGHT);
 
-			pressDown(VK_DOWN);
-			return;
+		pressDown(VK_DOWN);
+		std::cout << "É²³µ";
+		return;
 	}
-	else		
-		pressUp(VK_DOWN);		
-	
+	else
+		pressUp(VK_DOWN);
+
 	//ÊÍ·ÅµªÆø
 	if (distance(blue, green) < THR_NRT)
 	{
 		//before press
-		pressUp(VK_LEFT);
-		pressUp(VK_RIGHT);
-
-		pressDown(VK_RSHIFT);
-		pressUp(VK_RSHIFT);
+		nitrogen();
 		return;
 	}
 
@@ -69,9 +76,10 @@ void control(HandPoint & blue, HandPoint & red, HandPoint & green, HandPoint & y
 			pressDown(VK_UP);
 			pressDown(VK_LEFT);
 			pressDown(VK_RSHIFT);
+			std::cout << "×óÆ¯ÒÆ";
 		}
 		else
-		//ÓÒÆ¯ÒÆ
+			//ÓÒÆ¯ÒÆ
 		{
 			pressUp(VK_DOWN);
 			pressUp(VK_LEFT);
@@ -79,19 +87,21 @@ void control(HandPoint & blue, HandPoint & red, HandPoint & green, HandPoint & y
 			pressDown(VK_UP);
 			pressDown(VK_RIGHT);
 			pressDown(VK_RSHIFT);
+			std::cout << "ÓÒÆ¯ÒÆ";
 		}
 		return;
 	}
-	
+
 	double tempTan = m_tan(blue, green);
 	if (tempTan > 0.57)
 	{
 		pressUp(VK_DOWN);
 		pressUp(VK_RSHIFT);
 		pressUp(VK_RIGHT);
-		
+
 		pressDown(VK_UP);
 		pressDown(VK_LEFT);
+		std::cout << "×ó×ª";
 		return;
 	}
 	else
@@ -103,26 +113,27 @@ void control(HandPoint & blue, HandPoint & red, HandPoint & green, HandPoint & y
 
 		pressDown(VK_UP);
 		pressDown(VK_RIGHT);
+		std::cout << "ÓÒ×ª";
 		return;
 	}
-	
+
 	pressUp(VK_DOWN);
 	pressUp(VK_LEFT);
 	pressUp(VK_RIGHT);
 	pressUp(VK_SHIFT);
 
 	pressDown(VK_UP);
+	std::cout << "Ç°ÐÐ";
 }
 
-void init()
+int main()
 {
-	
+	int x;
+	std::cin >> x;
+	while (1)
+	{
+		nitrogen();
+		Sleep(1000);
+	}
+	return 0;
 }
-//
-//int main()
-//{
-//	int x;
-//	std::cin >> x;
-//	std::cout << x;
-//	return 0;
-//}
