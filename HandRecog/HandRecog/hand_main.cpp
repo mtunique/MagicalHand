@@ -59,6 +59,11 @@ int main()
 		split(hsv_test, channel_image);
 
 		imshow(window_name, smooth_test);
+
+		imshow("H", channel_image[0]);
+		imshow("S", channel_image[1]);
+		imshow("V", channel_image[2]);
+
 		int c = waitKey(10);
 
 		if (c == ' ' || c == 27)
