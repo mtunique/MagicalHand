@@ -47,7 +47,7 @@ void nitrogen()
 	pressUp(VK_RIGHT);
 
 	pressDown(VK_SPACE);
-	std::cout << "µªÆø";
+	std::cout << "µªÆø" << std::endl;
 }
 
 void control2(HandPoint &green, HandPoint &red, HandPoint &blue, HandPoint &yellow)
@@ -63,12 +63,14 @@ void control2(HandPoint &green, HandPoint &red, HandPoint &blue, HandPoint &yell
 					//right
 					pressDown(VK_ESCAPE);
 					pressUp(VK_ESCAPE);
+					std::cout << "ESC" << std::endl;
 				}
 				else
 				{
 					//left
 					pressDown(VK_RETURN);
 					pressUp(VK_RETURN);
+					std::cout << "ENTERN" << std::endl;
 				}
 			}
 			else
@@ -78,12 +80,14 @@ void control2(HandPoint &green, HandPoint &red, HandPoint &blue, HandPoint &yell
 					//down
 					pressDown(VK_DOWN);
 					pressUp(VK_DOWN);
+					std::cout << "DOWN" << std::endl;
 				}
 				else
 				{
 					//up
 					pressDown(VK_UP);
 					pressUp(VK_UP);
+					std::cout << "UP" << std::endl;
 				}
 
 			}
@@ -125,7 +129,7 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 		pressUp(VK_RIGHT);
 
 		pressDown(VK_DOWN);
-		std::cout << "É²³µ";
+		std::cout << "É²³µ" << std::endl;
 		return;
 	}
 	else
@@ -151,7 +155,7 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 			pressDown(VK_UP);
 			pressDown(VK_LEFT);
 			pressDown(VK_RSHIFT);
-			std::cout << "×óÆ¯ÒÆ";
+			std::cout << "×óÆ¯ÒÆ" << std::endl;
 			return;
 		}
 
@@ -165,7 +169,7 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 			pressDown(VK_UP);
 			pressDown(VK_LEFT);
 			pressDown(VK_RSHIFT);
-			std::cout << "×óÆ¯ÒÆ";
+			std::cout << "ÓÒÆ¯ÒÆ"<<std::endl;
 			return;
 		}
 
@@ -179,7 +183,7 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 
 		pressDown(VK_UP);
 		pressDown(VK_LEFT);
-		std::cout << "×ó×ª";
+		std::cout << "×ó×ª" << std::endl;
 		return;
 	}
 	else
@@ -192,7 +196,7 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 
 		pressDown(VK_UP);
 		pressDown(VK_RIGHT);
-		std::cout << "ÓÒ×ª";
+		std::cout << "ÓÒ×ª" << std::endl;
 		return;
 	}
 
@@ -203,7 +207,7 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 	pressUp(VK_SHIFT);
 
 	pressDown(VK_UP);
-	std::cout << "Ç°ÐÐ";
+	std::cout << "Ç°ÐÐ" << std::endl;
 }
 
 void init()
