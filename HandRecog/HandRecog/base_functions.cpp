@@ -47,7 +47,7 @@ void nitrogen()
 	pressUp(VK_RIGHT);
 
 	pressDown(VK_SPACE);
-	std::cout << "µªÆø" << std::endl;
+	std::cout << "µªÆø" <<std::endl;
 }
 
 void control2(HandPoint &green, HandPoint &red, HandPoint &blue, HandPoint &yellow)
@@ -215,14 +215,14 @@ void init()
 	
 }
 
-int main()
-{
-	int x;
-	std::cin >> x;
-	while (1)
-	{
-		nitrogen();
-		Sleep(1000);
-	}
-	return 0;
-}
+//int main()
+//{
+//	int x;
+//	std::cin >> x;
+//	while (1)
+//	{
+//		nitrogen();
+//		Sleep(1000);
+//	}
+//	return 0;
+//}
