@@ -15,8 +15,11 @@ double m_tan(HandPoint &, HandPoint &);
 double distance(HandPoint &, HandPoint &);
 HandPoint getCenter(HandPoint &, HandPoint &);
 
+
 void control(HandPoint &, HandPoint &, HandPoint &, HandPoint &);
+void control2(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yellow);
 void init();
+
 
 
 //press key
