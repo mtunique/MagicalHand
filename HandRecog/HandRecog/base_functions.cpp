@@ -120,6 +120,36 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 		tmp = red; red = yellow; yellow = tmp;
 	}
 
+	//Æ¯ÒÆ
+
+	//×óÆ¯ÒÆ
+	if (green.y < MAX_X / 2 && blue.y < MAX_X / 2)
+	{
+		pressUp(VK_SPACE);
+		pressUp(VK_DOWN);
+		pressUp(VK_RIGHT);
+
+		pressDown(VK_UP);
+		pressDown(VK_LEFT);
+		pressDown(VK_RSHIFT);
+		std::cout << "×óÆ¯ÒÆ" << std::endl;
+		return;
+	}
+
+	//ÓÒÆ¯ÒÆ
+	if (green.y > MAX_X / 2 && blue.y > MAX_X / 2)
+	{
+		pressUp(VK_SPACE);
+		pressUp(VK_DOWN);
+		pressUp(VK_RIGHT);
+
+		pressDown(VK_UP);
+		pressDown(VK_LEFT);
+		pressDown(VK_RSHIFT);
+		std::cout << "ÓÒÆ¯ÒÆ" << std::endl;
+		return;
+	}
+
 	//É²³µ
 	if (red.color &&yellow.color)
 	{
@@ -143,35 +173,6 @@ void control(HandPoint &blue, HandPoint &red, HandPoint &green, HandPoint &yello
 		return;
 	}
 
-	//Æ¯ÒÆ
-
-		//×óÆ¯ÒÆ
-		if (green.y < MAX_X / 2 && blue.y < MAX_X / 2)
-		{
-			pressUp(VK_SPACE);
-			pressUp(VK_DOWN);
-			pressUp(VK_RIGHT);
-
-			pressDown(VK_UP);
-			pressDown(VK_LEFT);
-			pressDown(VK_RSHIFT);
-			std::cout << "×óÆ¯ÒÆ" << std::endl;
-			return;
-		}
-
-			//ÓÒÆ¯ÒÆ
-		if (green.y > MAX_X / 2 && blue.y > MAX_X / 2)
-		{
-			pressUp(VK_SPACE);
-			pressUp(VK_DOWN);
-			pressUp(VK_RIGHT);
-
-			pressDown(VK_UP);
-			pressDown(VK_LEFT);
-			pressDown(VK_RSHIFT);
-			std::cout << "ÓÒÆ¯ÒÆ"<<std::endl;
-			return;
-		}
 
 	double tempTan = m_tan(blue, green);
 	if (tempTan > 0.57)
