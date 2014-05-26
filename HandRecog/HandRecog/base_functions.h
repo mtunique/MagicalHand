@@ -7,7 +7,7 @@ struct HandPoint;
 
 //type 
 const double MAXTAN = 1000000000;
-const double THR_NRT = 20;
+const double THR_NRT = 100;
 
 
 //computation geometry

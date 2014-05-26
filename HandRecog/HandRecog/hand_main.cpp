@@ -97,170 +97,123 @@ void ProcessContours(Mat source_img, Mat &edges_img, vector<vector<Point>> &cont
 	contours_out = contours_tmp_smooth;
 }
 
-//int main()
-//{
-//	//get ready for the camera and initialize some basic structures
-//	CCameraDS cameDS;
-//	int h_camera_count = CCameraDS::CameraCount();
-//	int h_camera_num = 0;
-//
-//	IplImage *p_frame = 0;//used to receive from the camera
-//	IplImage * test_img_mask = cvCreateImage(Size(640, 480), IPL_DEPTH_8U, 1);//receive from the skin_detect
-//	Mat source_image, output_image, final_image;//take over from the "IplImage"||after filter output image||final output image
-//	Mat edge_image;
-//
-//	vector<vector<Point>> contours_smooth;
-//	DetectPoint detect_point[MAX_OUTLINES];
-//	RotatedRect returnRect[MAX_OUTLINES];
-//	int outline_num = 0;
-//
-//	double last_area[2];
-//	last_area[0] = last_area[1] = 1;//monitor the area change by threshold
-//	double area_now[2];
-//	int mx_size;//judge size for now
-//
-//	//search for an available camera and initialize
-//	while (h_camera_num < h_camera_count)
-//	{
-//		if ((!cameDS.OpenCamera(h_camera_num, true)) || ((p_frame = cameDS.QueryFrame()) == NULL))
-//		{
-//			h_camera_num++;
-//		}
-//		else
-//		{
-//			break;
-//		}
-//		cameDS.CloseCamera();
-//	}
-//
-//	//if the camera doesn't work, tell me
-//	if (h_camera_num == h_camera_count)
-//	{
-//		cout << "Cannot open camera" << endl;
-//		return -1;
-//	}
-//
-//	//namedWindow(window_name, CV_WINDOW_AUTOSIZE | CV_WINDOW_FREERATIO);
-//
-//	while (p_frame == cameDS.QueryFrame())
-//	{
-//		cvSkinSegment(p_frame, test_img_mask);
-//		//filtering the image by 4
-//		cvErode(test_img_mask, test_img_mask, NULL, 1);
-//		cvDilate(test_img_mask, test_img_mask, NULL, 1);
-//		cvSmooth(test_img_mask, test_img_mask, CV_GAUSSIAN, 21, 0, 0);
-//		cvThreshold(test_img_mask, test_img_mask, 130, 255, CV_THRESH_BINARY);
-//
-//		output_image = test_img_mask;
-//		imshow("skin detect", output_image);
-//
-//		for (int row = 0; row < 100; row++)
-//		{
-//			for (int col = 0; col < output_image.cols; col++)
-//			{
-//				*(output_image.data + output_image.step[0] * row + output_image.step[1] * col) = 0;//B channel set to black
-//				*(output_image.data + output_image.step[0] * row + output_image.step[1] * col + output_image.elemSize1()) = 0;//G channel set to black
-//				*(output_image.data + output_image.step[0] * row + output_image.step[1] * col + output_image.elemSize1() * 2) = 0;//R channei set to black
-//			}
-//		}
-//
-//		ProcessContours(output_image, edge_image, contours_smooth);
-//
-//		outline_num = contours_smooth.size();
-//		if (outline_num > MAX_OUTLINES)
-//		{
-//			return -1;
-//		}
-//		vector<DetectPoint> vec_detect_point;
-//		for (int i = 0; i < outline_num; i++)
-//		{
-//			detect_point[i].id = i;
-//			returnRect[i] = minAreaRect(contours_smooth[i]);
-//			returnRect[i].points(detect_point[i].rp);
-//			detect_point[i].area = returnRect[i].size.area();
-//			detect_point[i].center = returnRect[i].center;
-//
-//			vec_detect_point.push_back(detect_point[i]);
-//		}
-//
-//		//sort and put them back to find out the biggest
-//		sort(vec_detect_point.begin(), vec_detect_point.end(), cmp);
-//		for (int i = 0; i < vec_detect_point.size(); i++)
-//		{
-//			detect_point[i] = vec_detect_point[i];
-//		}
-//
-//		Mat rect_image(Size(640, 480), CV_8UC1, Scalar(255));
-//		for (int i = 0; i < DISPLAY_OUTLINE_NUM; i++)
-//		{
-//			line(rect_image, detect_point[i].rp[0], detect_point[i].rp[1], Scalar(0));
-//			line(rect_image, detect_point[i].rp[1], detect_point[i].rp[2], Scalar(0));
-//			line(rect_image, detect_point[i].rp[2], detect_point[i].rp[3], Scalar(0));
-//			line(rect_image, detect_point[i].rp[3], detect_point[i].rp[0], Scalar(0));
-//		}
-//
-//		//show out the rect image
-//		imshow("rect detect", rect_image);
-//
-//
-//		if (detect_point[0].center.x < MID_X && detect_point[1].center.x > MID_X)
-//		{
-//			area_now[0] = detect_point[0].area;
-//			area_now[1] = detect_point[1].area;
-//		}
-//		else
-//		{
-//			if (detect_point[0].center.x > MID_X && detect_point[1].center.x < MID_X)
-//			{
-//				area_now[0] = detect_point[1].area;
-//				area_now[1] = detect_point[0].area;
-//			}
-//			else
-//			{
-//				area_now[0] = detect_point[0].area;
-//				area_now[1] = detect_point[1].area;
-//			}
-//		}
-//
-//		if ((area_now[0] / last_area[0]) >= CHANGE_AREA_THRESH && (area_now[1] / last_area[1]) >= CHANGE_AREA_THRESH)
-//		{
-//			mx_size = 1;
-//		}
-//		if ((area_now[0] / last_area[0]) <= 1 / CHANGE_AREA_THRESH && (area_now[1] / last_area[1]) <= 1 / CHANGE_AREA_THRESH)
-//		{
-//			mx_size = 0;
-//		}
-//		HandPoint L1, L2, R1, R2;
-//		L1.x = (detect_point[0].center.x < detect_point[1].center.x) ? detect_point[0].center.x : detect_point[1].center.x;
-//		L1.y = (detect_point[0].center.x < detect_point[1].center.x) ? detect_point[0].center.y : detect_point[1].center.y;
-//		L2 = L1;
-//		L1.color = 1;
-//		L2.color = mx_size;
-//
-//		R1.x = (detect_point[0].center.x > detect_point[1].center.x) ? detect_point[0].center.x : detect_point[1].center.x;
-//		R1.y = (detect_point[0].center.x > detect_point[1].center.x) ? detect_point[0].center.y : detect_point[1].center.y;
-//		R2 = R1;
-//		R1.color = 1;
-//		R2.color = mx_size;
-//
-//		control(L1, L2, R1, R2);
-//
-//		//reset the last_area var and get ready for the next frame
-//		last_area[0] = area_now[0];
-//		last_area[1] = area_now[1];
-//
-//		imshow("rect", rect_image);
-//
-//		int c = waitKey(10);
-//		if (c == 27)
-//		{
-//			break;
-//		}
-//	}
-//
-//	//destroyWindow(window_name);
-//
-//	cameDS.CloseCamera();
-//
-//	return 0;
-//}
+int main()
+{
+	//get ready for the camera and initialize some basic structures
+	CCameraDS cameDS;
+	int h_camera_count = CCameraDS::CameraCount();
+	int h_camera_num = 0;
+
+	IplImage *p_frame = 0;//used to receive from the camera
+	IplImage * test_img_mask = cvCreateImage(Size(640, 480), IPL_DEPTH_8U, 1);//receive from the skin_detect
+	Mat source_image, output_image, final_image;//take over from the "IplImage"||after filter output image||final output image
+	Mat edge_image;
+
+	vector<vector<Point>> contours_smooth;
+	DetectPoint detect_point[MAX_OUTLINES];
+	RotatedRect returnRect[MAX_OUTLINES];
+	int outline_num = 0;
+
+	double last_area[2];
+	last_area[0] = last_area[1] = 1;//monitor the area change by threshold
+	double area_now[2];
+	int mx_size;//judge size for now
+
+	//search for an available camera and initialize
+	while (h_camera_num < h_camera_count)
+	{
+		if ((!cameDS.OpenCamera(h_camera_num, true)) || ((p_frame = cameDS.QueryFrame()) == NULL))
+		{
+			h_camera_num++;
+		}
+		else
+		{
+			break;
+		}
+		cameDS.CloseCamera();
+	}
+
+	//if the camera doesn't work, tell me
+	if (h_camera_num == h_camera_count)
+	{
+		cout << "Cannot open camera" << endl;
+		return -1;
+	}
+
+	//namedWindow(window_name, CV_WINDOW_AUTOSIZE | CV_WINDOW_FREERATIO);
+	Mat source;
+	while (p_frame == cameDS.QueryFrame())
+	{
+		source = p_frame;
+		cvSkinSegment(p_frame, test_img_mask);
+		//filtering the image by 4
+		cvErode(test_img_mask, test_img_mask, NULL, 1);
+		cvDilate(test_img_mask, test_img_mask, NULL, 1);
+		cvSmooth(test_img_mask, test_img_mask, CV_GAUSSIAN, 21, 0, 0);
+		cvThreshold(test_img_mask, test_img_mask, 130, 255, CV_THRESH_BINARY);
+
+		output_image = test_img_mask;
+		imshow("skin detect", output_image);
+
+		for (int row = 0; row < 100; row++)
+		{
+			for (int col = 0; col < output_image.cols; col++)
+			{
+				*(output_image.data + output_image.step[0] * row + output_image.step[1] * col) = 0;//B channel set to black
+				*(output_image.data + output_image.step[0] * row + output_image.step[1] * col + output_image.elemSize1()) = 0;//G channel set to black
+				*(output_image.data + output_image.step[0] * row + output_image.step[1] * col + output_image.elemSize1() * 2) = 0;//R channei set to black
+			}
+		}
+
+		ProcessContours(output_image, edge_image, contours_smooth);
+
+		outline_num = contours_smooth.size();
+		if (outline_num > MAX_OUTLINES)
+		{
+			return -1;
+		}
+		vector<DetectPoint> vec_detect_point;
+		for (int i = 0; i < outline_num; i++)
+		{
+			detect_point[i].id = i;
+			returnRect[i] = minAreaRect(contours_smooth[i]);
+			returnRect[i].points(detect_point[i].rp);
+			detect_point[i].area = returnRect[i].size.area();
+			detect_point[i].center = returnRect[i].center;
+
+			vec_detect_point.push_back(detect_point[i]);
+		}
+
+		//sort and put them back to find out the biggest
+		sort(vec_detect_point.begin(), vec_detect_point.end(), cmp);
+		for (int i = 0; i < vec_detect_point.size(); i++)
+		{
+			detect_point[i] = vec_detect_point[i];
+		}
+
+		Mat rect_image(Size(640, 480), CV_8UC1, Scalar(255));
+		for (int i = 0; i < 1; i++)
+		{
+			line(source, detect_point[i].rp[0], detect_point[i].rp[1], Scalar(0));
+			line(source, detect_point[i].rp[1], detect_point[i].rp[2], Scalar(0));
+			line(source, detect_point[i].rp[2], detect_point[i].rp[3], Scalar(0));
+			line(source, detect_point[i].rp[3], detect_point[i].rp[0], Scalar(0));
+		}
+
+		//show out the rect image
+
+		imshow("source", source);
+
+		int c = waitKey(10);
+		if (c == ' ' || c == 27)
+		{
+			break;
+		}
+	}
+
+	//destroyWindow(window_name);
+
+	cameDS.CloseCamera();
+
+	return 0;
+}
